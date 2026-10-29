@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-version="20261029-2">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -7,9 +7,10 @@
   <meta name="description" content="豆豆与喵喵的时光纪念册。爱你，是每一秒都在发生的事。">
   <title>豆豆 × 喵喵 · 我们的每一秒</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css">
-  <script src="config.js" defer></script>
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261029-2">
+  <script src="config.js?v=20261029-2" defer></script>
+  <script src="app.js?v=20261029-2" defer></script>
+  <script src="gallery.js?v=20261029-2" defer></script>
 </head>
 <body>
   <div class="ambient ambient-pink" aria-hidden="true"></div><div class="ambient ambient-blue" aria-hidden="true"></div>
@@ -44,11 +45,29 @@
         <div class="milestones"><article><span class="milestone-index">01 / THE BEGINNING</span><h3>所有美好，从这一天开始。</h3><p id="begin-date">2026 年 3 月 24 日</p></article><article><span class="milestone-index">02 / THE NEXT CHAPTER</span><h3 id="next-title">下一个纪念日</h3><p id="next-date">正在计算…</p><div class="progress-track" aria-hidden="true"><span id="year-progress"></span></div></article></div>
       </div>
     </section>
+    <section class="birthdays page-section" aria-labelledby="birthdays-title">
+      <div class="story-heading"><span>YOUR DAY, MY FAVORITE DAY</span><h2 id="birthdays-title">你的生日，我的小小期待。</h2><p class="section-note">想陪你许愿，也想陪你慢慢长大。</p></div>
+      <div class="birthday-grid">
+        <article class="birthday-card"><span class="birthday-mark" aria-hidden="true">✧</span><span class="milestone-index">A WISH FOR YOU / 01</span><h3 id="birthday-name-0">豆豆的生日</h3><p class="birth-date">2003.10.29</p><div class="birthday-clock" id="birthday-clock-0" role="timer" aria-live="off"></div><p class="birthday-foot" id="birthday-foot-0"></p></article>
+        <article class="birthday-card"><span class="birthday-mark" aria-hidden="true">✧</span><span class="milestone-index">A WISH FOR YOU / 02</span><h3 id="birthday-name-1">喵喵的生日</h3><p class="birth-date">2006.10.10</p><div class="birthday-clock" id="birthday-clock-1" role="timer" aria-live="off"></div><p class="birthday-foot" id="birthday-foot-1"></p></article>
+      </div>
+    </section>
+    <section class="gallery page-section" aria-labelledby="gallery-title">
+      <div class="story-heading"><span>PIECES OF OUR LITTLE WORLD</span><h2 id="gallery-title">把喜欢的瞬间，叠成回忆。</h2><p class="section-note">左右轻轻一划，翻到我们的下一页。</p></div>
+      <div class="photo-deck" id="photo-deck" aria-label="错落照片图集" tabindex="0" aria-roledescription="轮播图">
+        <div class="empty-stack" id="gallery-empty"><div class="empty-photo back-two"></div><div class="empty-photo back-one"></div><button class="empty-photo front" id="empty-add"><span class="photo-doodle" aria-hidden="true">♡</span><span>把我们的日常<br>收藏在这里</span><small>添加第一张照片 ↗</small></button></div>
+      </div>
+      <div class="gallery-controls"><button id="photo-prev" class="round-arrow" aria-label="上一张照片">←</button><span id="photo-position" aria-live="polite">等待我们的第一张照片</span><button id="photo-next" class="round-arrow" aria-label="下一张照片">→</button></div>
+      <div class="gallery-actions"><button class="letter-button" id="add-photos">＋ 添加照片</button><button class="quiet-button" id="manage-photos">管理本地照片</button><input id="photo-input" type="file" accept="image/*" multiple hidden></div>
+      <p class="gallery-note" id="gallery-note">点击照片看完整图片 · 本地添加的照片仅保存在此浏览器</p>
+    </section>
     <section class="closing"><span class="little-heart">♡</span><p>时间会往前走，<br>而我会一直在你身边。</p><span class="closing-english">TODAY, TOMORROW & ALL THE DAYS AFTER.</span></section>
   </main>
   <footer><span id="footer-names">豆豆 & 喵喵</span><span>未完待续，来日方长。 <span class="footer-heart">♡</span></span><button id="settings" aria-label="打开纪念日设置">纪念日设置 <svg viewBox="0 0 24 24"><path d="M12 8v8M8 12h8"/></svg></button></footer>
   <dialog id="letter-dialog"><button class="dialog-close" data-close="letter-dialog" aria-label="关闭信笺">×</button><div class="letter-tag">A LETTER FOR YOU</div><div class="letter-heart">♡</div><h2>写给最偏爱的你</h2><p id="letter-text"></p><span class="letter-stamp">WITH ALL MY LOVE</span></dialog>
   <dialog id="settings-dialog"><button class="dialog-close" data-close="settings-dialog" aria-label="关闭设置">×</button><div class="letter-tag">OUR LITTLE DETAILS</div><h2>故事的起点</h2><form id="settings-form"><div class="form-names"><label>你的称呼<input name="first" required maxlength="16"></label><label>她的称呼<input name="second" required maxlength="16"></label></div><label>开始在一起的时间（北京时间）<input name="start" type="datetime-local" step="1" required></label><label>想说给她听的话<textarea name="letter" rows="5" maxlength="2000"></textarea></label><p class="form-note">保存后仅在当前浏览器生效；下载专属页面，可将新设置分享给她或上传 GitHub。</p><p id="form-error" role="alert"></p><div class="form-actions"><button type="submit" class="save-button">保存纪念日</button><button type="button" id="download-page" class="quiet-button">下载专属页面 ↗</button></div></form></dialog>
+  <dialog id="photo-dialog" aria-label="完整照片查看器"><div class="lightbox-toolbar"><span id="lightbox-count"></span><button class="dialog-close" data-close="photo-dialog" aria-label="关闭完整照片">×</button></div><div class="lightbox-stage" id="lightbox-stage"><img id="full-photo" alt=""></div><div class="lightbox-footer"><button class="round-arrow" id="lightbox-prev" aria-label="查看上一张完整照片">←</button><p id="full-photo-caption"></p><button class="round-arrow" id="lightbox-next" aria-label="查看下一张完整照片">→</button></div></dialog>
+  <dialog id="photo-manage-dialog" aria-labelledby="manage-title"><button class="dialog-close" data-close="photo-manage-dialog" aria-label="关闭照片管理">×</button><div class="letter-tag">OUR LITTLE COLLECTION</div><h2 id="manage-title">整理本地照片</h2><p class="form-note">这里只整理当前浏览器添加的照片，可修改标题或移除。</p><div id="photo-manage-list"></div></dialog>
   <div id="toast" role="status"></div>
   <noscript>请启用 JavaScript，查看豆豆和喵喵持续增加的在一起时长。</noscript>
 </body>
