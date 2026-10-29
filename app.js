@@ -119,27 +119,26 @@
     const button=$('download-page');button.disabled=true;
     try {
       const fetchText=async url=>{const r=await fetch(url);if(!r.ok)throw new Error('fetch failed');return r.text();};
-      const [css,js]=await Promise.all([fetchText('style.css?v=20261029-6'),fetchText('app.js?v=20261029-6')]);
+      const [css,js,eggs]=await Promise.all([fetchText('style.css?v=20261029-7'),fetchText('app.js?v=20261029-7'),fetchText('little-things.js?v=20261029-7')]);
       const exportConfig=value;
       const clone=document.documentElement.cloneNode(true);
       clone.querySelectorAll('script,link[rel="stylesheet"]').forEach(n=>n.remove());
       clone.querySelectorAll('dialog').forEach(n=>n.removeAttribute('open'));
       clone.querySelector('#toast').classList.remove('visible');
       clone.querySelectorAll('.petal').forEach(n=>n.remove());
+      clone.querySelector('#egg-fx').replaceChildren();
+      clone.querySelectorAll('.is-holding,.is-close,.poem-play,.poem-in-view,.wish-lit,.heart-pop').forEach(n=>n.classList.remove('is-holding','is-close','poem-play','poem-in-view','wish-lit','heart-pop'));
+      clone.querySelector('#couple').setAttribute('aria-pressed','false');
       clone.querySelector('body').classList.remove('modal-scroll-locked');
       clone.querySelector('body').style.removeProperty('--locked-y');
       clone.querySelector('title').textContent=`${value.names.join(' × ')} · 我们的每一秒`;
       const style=document.createElement('style');style.textContent=css;clone.querySelector('head').append(style);
       const setting=document.createElement('script');setting.textContent='window.LOVE_CONFIG='+JSON.stringify(exportConfig).replace(/</g,'\\u003c')+';';
       clone.querySelector('head').append(setting);
-      const app=document.createElement('script');app.textContent=js;clone.querySelector('body').append(app);
+      const app=document.createElement('script');app.textContent=js+'\n'+eggs;clone.querySelector('body').append(app);
       clone.querySelector('#download-page').hidden=true;
       const link=document.createElement('a');const url=URL.createObjectURL(new Blob(['<!doctype html>\n'+clone.outerHTML],{type:'text/html;charset=utf-8'}));link.href=url;link.download='our-seconds.html';link.click();setTimeout(()=>URL.revokeObjectURL(url),10000);
       toast('专属页面已下载 ♡');
     }catch{toast('请在网站中打开后下载，或直接编辑 config.js');}finally{button.disabled=false;}
-  });
-  document.querySelector('.heart').addEventListener('click',e=>{
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-    for(let i=0;i<7;i++){const p=document.createElement('span');p.className='petal';p.textContent='♡';p.style.left=e.clientX+'px';p.style.top=e.clientY+'px';p.style.setProperty('--dx',(Math.random()-.5)*150+'px');p.style.animationDelay=i*35+'ms';document.body.append(p);setTimeout(()=>p.remove(),1800);}
   });
 })();
