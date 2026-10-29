@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" data-version="20261029-7">
+<html lang="zh-CN" data-version="20261029-8">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -7,10 +7,10 @@
   <meta name="description" content="豆豆与喵喵的时光纪念册。爱你，是每一秒都在发生的事。">
   <title>豆豆 × 喵喵 · 我们的每一秒</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=20261029-7">
-  <script src="config.js?v=20261029-7" defer></script>
-  <script src="app.js?v=20261029-7" defer></script>
-  <script src="little-things.js?v=20261029-7" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261029-8">
+  <script src="config.js?v=20261029-8" defer></script>
+  <script src="app.js?v=20261029-8" defer></script>
+  <script src="little-things.js?v=20261029-8" defer></script>
 </head>
 <body>
   <div class="page-decoration" aria-hidden="true"><div class="ambient ambient-pink"></div><div class="ambient ambient-blue"></div><div class="grain"></div><div class="star-field"><span class="decor-star" style="--x:8%;--y:21%;--delay:0s">✦</span><span class="decor-star small" style="--x:88%;--y:15%;--delay:2s">✧</span><span class="decor-star small" style="--x:15%;--y:66%;--delay:4s">✧</span><span class="decor-star" style="--x:92%;--y:78%;--delay:1s">✦</span><span class="decor-dot" style="--x:20%;--y:36%"></span><span class="decor-dot" style="--x:81%;--y:53%"></span></div></div>
@@ -24,7 +24,7 @@
       <div class="eyebrow"><span></span> A LITTLE FOREVER OF OUR OWN <span></span></div>
       <h1 id="title">爱你，是每一秒<br>都在发生的事<span class="title-dot">。</span></h1>
       <p class="subtitle">世界很大，而我的偏爱，刚好是你。</p>
-      <div class="couple-wrap"><div class="couple" id="couple" role="button" tabindex="0" aria-label="长按让两个人靠近，再长按松开" aria-pressed="false" aria-describedby="couple-hint"><span class="name name-a">豆豆</span><span class="heart" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 27S3 19.2 3 10.8C3 3.8 12 2.3 16 8c4-5.7 13-4.2 13 2.8C29 19.2 16 27 16 27Z"/></svg><svg class="hold-ring" viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"/></svg></span><span class="name name-b">喵喵</span></div><p class="couple-hint" id="couple-hint" aria-live="polite">长按一下，想和你再靠近一点。</p></div>
+      <div class="couple-wrap"><button type="button" class="couple" id="couple" aria-label="长按让两个人靠近，再长按松开" aria-pressed="false" aria-describedby="couple-hint"><span class="name name-a">豆豆</span><span class="heart" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 27S3 19.2 3 10.8C3 3.8 12 2.3 16 8c4-5.7 13-4.2 13 2.8C29 19.2 16 27 16 27Z"/></svg><svg class="hold-ring" viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"/></svg></span><span class="name name-b">喵喵</span></button><p class="couple-hint" id="couple-hint" aria-live="polite">长按一下，想和你再靠近一点。</p></div>
       <div class="timer-panel">
         <div class="timer-caption"><span class="tiny-star">✧</span> 我们已经一起走过 <span class="tiny-star">✧</span></div>
         <div class="days-line"><span id="days">—</span><span class="days-unit">天<small>DAYS IN LOVE</small></span></div>
@@ -41,15 +41,15 @@
     <section class="story" aria-label="我们的纪念时刻">
       <div class="story-heading"><span>THE WAY WE LOVE</span><h2><button id="poem" class="poem-button" aria-label="两个人，把日子过成诗。点一下试试"><span class="poem-copy">两个人，把日子过成诗。</span></button></h2><svg class="poem-underline" viewBox="0 0 180 16" aria-hidden="true"><path d="M5 10c40-7 105-8 166-1M146 5l5 2-4 4"/></svg><p class="poem-note" id="poem-note" aria-live="polite">两个灵魂，一个小小的宇宙。</p></div>
       <div class="story-layout">
-        <div class="orbit-art" aria-hidden="true"><svg viewBox="0 0 380 290"><defs><radialGradient id="glow"><stop stop-color="#edbcc8" stop-opacity=".5"/><stop offset="1" stop-color="#edbcc8" stop-opacity="0"/></radialGradient><linearGradient id="orb"><stop stop-color="#cc9cac"/><stop offset="1" stop-color="#9dbec5"/></linearGradient></defs><circle cx="190" cy="145" r="135" fill="url(#glow)"/><g fill="none" stroke="url(#orb)" stroke-width=".8"><ellipse cx="190" cy="145" rx="160" ry="60" transform="rotate(-28 190 145)"/><ellipse cx="190" cy="145" rx="160" ry="60" transform="rotate(28 190 145)"/><circle cx="190" cy="145" r="95" stroke-dasharray="2 9" opacity=".5"/></g><circle class="planet-a" cx="62" cy="180" r="12" fill="#d28c9e"/><circle class="planet-b" cx="318" cy="180" r="10" fill="#94b5c1"/><path d="M190 161s-26-15-26-32c0-14 18-17 26-5 8-12 26-9 26 5 0 17-26 32-26 32Z" fill="none" stroke="#bd7a8f" stroke-width="1.4"/><g fill="#bfa58b"><path d="m83 62 2-7 2 7 7 2-7 2-2 7-2-7-7-2Z"/><path d="m287 61 1-4 1 4 4 1-4 1-1 4-1-4-4-1Z"/></g><text x="190" y="261" text-anchor="middle" fill="#a08b88" font-family="Georgia,serif" font-style="italic" font-size="14">two souls, one little universe.</text></svg></div>
+        <div class="orbit-art" id="orbit-art" aria-hidden="true"><svg id="orbit-system" viewBox="0 0 380 290"><defs><radialGradient id="glow"><stop stop-color="#edbcc8" stop-opacity=".5"/><stop offset="1" stop-color="#edbcc8" stop-opacity="0"/></radialGradient><linearGradient id="orb"><stop stop-color="#cc9cac"/><stop offset="1" stop-color="#9dbec5"/></linearGradient></defs><circle cx="190" cy="145" r="135" fill="url(#glow)"/><g class="orbit-plane orbit-plane-a" transform="rotate(-28 190 145)"><ellipse cx="190" cy="145" rx="160" ry="60" fill="none" stroke="url(#orb)" stroke-width=".8"/><circle class="planet-a" cx="0" cy="0" r="12" fill="#d28c9e"><animateMotion path="M350 145 A160 60 0 1 1 30 145 A160 60 0 1 1 350 145" dur="14s" begin="-6s" repeatCount="indefinite"/></circle></g><g class="orbit-plane orbit-plane-b" transform="rotate(28 190 145)"><ellipse cx="190" cy="145" rx="160" ry="60" fill="none" stroke="url(#orb)" stroke-width=".8"/><circle class="planet-b" cx="0" cy="0" r="10" fill="#94b5c1"><animateMotion path="M30 145 A160 60 0 1 0 350 145 A160 60 0 1 0 30 145" dur="18s" begin="-4s" repeatCount="indefinite"/></circle></g><circle class="orbit-dots" cx="190" cy="145" r="95" fill="none" stroke="url(#orb)" stroke-width=".8" stroke-dasharray="2 9" opacity=".5"/><path class="orbit-heart" d="M190 161s-26-15-26-32c0-14 18-17 26-5 8-12 26-9 26 5 0 17-26 32-26 32Z" fill="none" stroke="#bd7a8f" stroke-width="1.4"/><g fill="#bfa58b"><path d="m83 62 2-7 2 7 7 2-7 2-2 7-2-7-7-2Z"/><path d="m287 61 1-4 1 4 4 1-4 1-1 4-1-4-4-1Z"/></g><text x="190" y="261" text-anchor="middle" fill="#a08b88" font-family="Georgia,serif" font-style="italic" font-size="14">two souls, one little universe.</text></svg></div>
         <div class="milestones"><article><span class="milestone-index">01 / THE BEGINNING</span><h3>所有美好，从这一天开始。</h3><p id="begin-date">2026 年 3 月 24 日</p></article><article><span class="milestone-index">02 / THE NEXT CHAPTER</span><h3 id="next-title">下一个纪念日</h3><p id="next-date">正在计算…</p><div class="progress-track" aria-hidden="true"><span id="year-progress"></span></div></article></div>
       </div>
     </section>
     <section class="birthdays page-section" aria-labelledby="birthdays-title">
       <div class="story-heading"><span>YOUR DAY, MY FAVORITE DAY</span><h2 id="birthdays-title">你的生日，我的小小期待。</h2><p class="section-note">想陪你许愿，也想陪你慢慢长大。</p></div>
       <div class="birthday-grid">
-        <article class="birthday-card"><button class="birthday-mark birthday-wish" aria-label="点亮一份生日祝福" title="替你许一个愿">✧</button><span class="milestone-index">A WISH FOR YOU / 01</span><h3 id="birthday-name-0">豆豆的生日</h3><p class="birth-date">2003.10.29</p><div class="birthday-clock" id="birthday-clock-0" role="timer" aria-live="off"></div><p class="birthday-foot" id="birthday-foot-0"></p></article>
-        <article class="birthday-card"><button class="birthday-mark birthday-wish" aria-label="点亮一份生日祝福" title="替你许一个愿">✧</button><span class="milestone-index">A WISH FOR YOU / 02</span><h3 id="birthday-name-1">喵喵的生日</h3><p class="birth-date">2006.10.10</p><div class="birthday-clock" id="birthday-clock-1" role="timer" aria-live="off"></div><p class="birthday-foot" id="birthday-foot-1"></p></article>
+        <article class="birthday-card"><button class="birthday-mark birthday-wish" aria-label="点亮一份生日祝福" title="替你许一个愿">✧</button><span class="milestone-index">A WISH FOR YOU / 01</span><h3 id="birthday-name-0">豆豆的生日</h3><p class="birth-date">2003.10.29</p><div class="birthday-clock" id="birthday-clock-0" role="timer" aria-live="off"></div><p class="birthday-foot" id="birthday-foot-0"></p><p class="birthday-blessing" id="birthday-blessing-0" role="status" aria-live="polite">留一颗星，等你来许愿。</p></article>
+        <article class="birthday-card"><button class="birthday-mark birthday-wish" aria-label="点亮一份生日祝福" title="替你许一个愿">✧</button><span class="milestone-index">A WISH FOR YOU / 02</span><h3 id="birthday-name-1">喵喵的生日</h3><p class="birth-date">2006.10.10</p><div class="birthday-clock" id="birthday-clock-1" role="timer" aria-live="off"></div><p class="birthday-foot" id="birthday-foot-1"></p><p class="birthday-blessing" id="birthday-blessing-1" role="status" aria-live="polite">留一颗星，等你来许愿。</p></article>
       </div>
     </section>
     <section class="closing"><div class="closing-stitch" aria-hidden="true"><span></span><i>✧</i><span></span></div><button class="little-heart" id="secret-heart" aria-label="收下一颗小小的心" title="这颗心，也偏向你">♡</button><p>时间会往前走，<br>而我会一直在你身边。</p><span class="closing-english">TODAY, TOMORROW & ALL THE DAYS AFTER.</span><p class="secret-note" id="secret-note" aria-live="polite"></p></section>

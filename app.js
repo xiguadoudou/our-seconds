@@ -119,7 +119,7 @@
     const button=$('download-page');button.disabled=true;
     try {
       const fetchText=async url=>{const r=await fetch(url);if(!r.ok)throw new Error('fetch failed');return r.text();};
-      const [css,js,eggs]=await Promise.all([fetchText('style.css?v=20261029-7'),fetchText('app.js?v=20261029-7'),fetchText('little-things.js?v=20261029-7')]);
+      const [css,js,eggs]=await Promise.all([fetchText('style.css?v=20261029-8'),fetchText('app.js?v=20261029-8'),fetchText('little-things.js?v=20261029-8')]);
       const exportConfig=value;
       const clone=document.documentElement.cloneNode(true);
       clone.querySelectorAll('script,link[rel="stylesheet"]').forEach(n=>n.remove());
