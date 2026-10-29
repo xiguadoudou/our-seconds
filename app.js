@@ -20,7 +20,7 @@
     document.title = `${config.names.join(' × ')} · 我们的每一秒`;
     $('footer-names').textContent=config.names.join(' & ');$('letter-text').textContent=config.letter;
     const s=chinaParts(startTime);
-    $('since').textContent=`${s.year}.${pad(s.month+1)}.${pad(s.day)} · ${pad(s.hours)}:${pad(s.minutes)}${s.seconds?':'+pad(s.seconds):''}`;
+    $('since').textContent=`${s.year}.${pad(s.month+1)}.${pad(s.day)}`;
     $('since').dateTime=config.start;$('begin-date').textContent=`${s.year} 年 ${s.month+1} 月 ${s.day} 日`;
     update();
   }
@@ -119,7 +119,7 @@
     const button=$('download-page');button.disabled=true;
     try {
       const fetchText=async url=>{const r=await fetch(url);if(!r.ok)throw new Error('fetch failed');return r.text();};
-      const [css,js,eggs]=await Promise.all([fetchText('style.css?v=20261029-8'),fetchText('app.js?v=20261029-8'),fetchText('little-things.js?v=20261029-8')]);
+      const [css,js,eggs]=await Promise.all([fetchText('style.css?v=20261029-9'),fetchText('app.js?v=20261029-9'),fetchText('little-things.js?v=20261029-9')]);
       const exportConfig=value;
       const clone=document.documentElement.cloneNode(true);
       clone.querySelectorAll('script,link[rel="stylesheet"]').forEach(n=>n.remove());
