@@ -47,8 +47,14 @@
       const b=birthdayState(now,birth),p=b.remaining;
       text('birthday-name-'+i,config.names[i]+'的生日');
       const clock=$('birthday-clock-'+i);clock.classList.toggle('is-birthday',b.today);
-      if(b.today){clock.textContent='今天，生日快乐 ♡';text('birthday-foot-'+i,`${b.age} 岁的每一天，都想陪你一起度过。`);}
-      else{clock.innerHTML=`<strong>${p.days}</strong><span>天</span><em>${pad(p.hours)} : ${pad(p.minutes)} : ${pad(p.seconds)}</em>`;text('birthday-foot-'+i,`距离 ${b.age} 岁生日 · ${birth.slice(5).replace('-', ' 月 ')} 日`);}
+      const mode=b.today?'today':'countdown';
+      if(clock.dataset.mode!==mode){
+        clock.dataset.mode=mode;clock.replaceChildren();
+        if(b.today){clock.textContent='今天，生日快乐 ♡';}
+        else{const days=document.createElement('strong'),unit=document.createElement('span'),time=document.createElement('em');days.id='birthday-days-'+i;time.id='birthday-time-'+i;unit.textContent='天';clock.append(days,unit,time);delete cache[days.id];delete cache[time.id];}
+      }
+      if(b.today)text('birthday-foot-'+i,`${b.age} 岁的每一天，都想陪你一起度过。`);
+      else{text('birthday-days-'+i,p.days);text('birthday-time-'+i,`${pad(p.hours)} : ${pad(p.minutes)} : ${pad(p.seconds)}`);text('birthday-foot-'+i,`距离 ${b.age} 岁生日 · ${birth.slice(5).replace('-', ' 月 ')} 日`);}
     });
   }
   function update() {
@@ -58,12 +64,29 @@
     if(dayKey!==lastDay){milestones(now);lastDay=dayKey;}
     const secondKey=Math.floor(now/1000);if(secondKey!==lastBirthdaySecond){renderBirthdays(now);lastBirthdaySecond=secondKey;}
   }
-  function loop(){update();frame=requestAnimationFrame(loop);}
-  document.addEventListener('visibilitychange',()=>{cancelAnimationFrame(frame);if(!document.hidden)loop();});
+  let lastPaint=-Infinity;
+  function loop(timestamp=0){if(timestamp-lastPaint>=32){update();lastPaint=timestamp;}frame=requestAnimationFrame(loop);}
+  document.addEventListener('visibilitychange',()=>{cancelAnimationFrame(frame);if(!document.hidden){lastPaint=-Infinity;loop();}});
   renderConfig();loop();
-  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.close).close()));
-  document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}}));
-  $('open-letter').addEventListener('click',()=>$('letter-dialog').showModal());
+  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{const d=$(b.dataset.close);if(d.dataset.busy!=='true')d.close();}));
+  document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d&&d.dataset.busy!=='true'){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}}));
+  let lockedScroll=null;
+  window.showLoveDialog=dialog=>{
+    if(dialog.open)return;
+    if(!document.querySelector('dialog[open]')){
+      lockedScroll={x:window.scrollX,y:window.scrollY};
+      document.body.style.setProperty('--locked-y',`${-lockedScroll.y}px`);
+      document.body.classList.add('modal-scroll-locked');
+    }
+    dialog.showModal();window.dispatchEvent(new Event('love:dialog-open'));
+  };
+  document.querySelectorAll('dialog').forEach(dialog=>dialog.addEventListener('close',()=>{
+    if(document.querySelector('dialog[open]')||!lockedScroll)return;
+    const position=lockedScroll;lockedScroll=null;
+    document.body.classList.remove('modal-scroll-locked');document.body.style.removeProperty('--locked-y');
+    window.scrollTo({left:position.x,top:position.y,behavior:'instant'});
+  }));
+  $('open-letter').addEventListener('click',()=>window.showLoveDialog($('letter-dialog')));
   let toastTimer;
   function toast(message){$('toast').textContent=message;$('toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),3000);}
   function applyTheme(dark){document.body.classList.toggle('dark',dark);$('theme').setAttribute('aria-label',dark?'切换日间主题':'切换夜间主题');$('theme').setAttribute('aria-pressed',String(dark));document.querySelector('meta[name="theme-color"]').content=dark?'#211e28':'#f9f6f2';}
@@ -73,7 +96,7 @@
   $('fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{toast('当前浏览器暂不支持全屏');}});
   document.addEventListener('fullscreenchange',()=>{$('fullscreen').setAttribute('aria-label',document.fullscreenElement?'退出全屏':'进入全屏');$('fullscreen').firstChild.textContent=document.fullscreenElement?'回到日常 ':'沉浸一下 ';});
   const form=$('settings-form');
-  $('settings').addEventListener('click',()=>{form.elements.first.value=config.names[0];form.elements.second.value=config.names[1];form.elements.start.value=config.start.slice(0,19);form.elements.letter.value=config.letter;$('form-error').textContent='';$('settings-dialog').showModal();});
+  $('settings').addEventListener('click',()=>{form.elements.first.value=config.names[0];form.elements.second.value=config.names[1];form.elements.start.value=config.start.slice(0,19);form.elements.letter.value=config.letter;$('form-error').textContent='';window.showLoveDialog($('settings-dialog'));});
   function readForm(){
     if(!form.reportValidity())return null;
     const start=form.elements.start.value.length===16?form.elements.start.value+':00':form.elements.start.value;
@@ -87,8 +110,8 @@
     const button=$('download-page');button.disabled=true;
     try {
       const fetchText=async url=>{const r=await fetch(url);if(!r.ok)throw new Error('fetch failed');return r.text();};
-      const [css,js,galleryJS]=await Promise.all([fetchText('style.css?v=20261029-2'),fetchText('app.js?v=20261029-2'),fetchText('gallery.js?v=20261029-2')]);
-      const exportConfig={...value,photos:await window.exportLovePhotos()};
+      const [css,js,galleryJS,githubJS]=await Promise.all([fetchText('style.css?v=20261029-3'),fetchText('app.js?v=20261029-3'),fetchText('gallery.js?v=20261029-3'),fetchText('github-album.js?v=20261029-3')]);
+      const exportConfig={...value,photos:await window.exportLovePhotos(),snapshot:true};
       const clone=document.documentElement.cloneNode(true);
       clone.querySelectorAll('script,link[rel="stylesheet"]').forEach(n=>n.remove());
       clone.querySelectorAll('dialog').forEach(n=>n.removeAttribute('open'));
@@ -98,11 +121,16 @@
       clone.querySelector('#gallery-empty').hidden=false;
       clone.querySelector('#full-photo').removeAttribute('src');
       clone.querySelector('#photo-manage-list').replaceChildren();
+      clone.querySelector('#upload-preview-list').replaceChildren();
+      clone.querySelectorAll('input[type="password"]').forEach(input=>{input.value='';input.removeAttribute('value');});
+      clone.querySelector('body').classList.remove('modal-scroll-locked');
+      clone.querySelector('body').style.removeProperty('--locked-y');
+      clone.querySelectorAll('.photo-card').forEach(n=>n.remove());
       clone.querySelector('title').textContent=`${value.names.join(' × ')} · 我们的每一秒`;
       const style=document.createElement('style');style.textContent=css;clone.querySelector('head').append(style);
       const setting=document.createElement('script');setting.textContent='window.LOVE_CONFIG='+JSON.stringify(exportConfig).replace(/</g,'\\u003c')+';';
       clone.querySelector('head').append(setting);
-      const app=document.createElement('script');app.textContent=js+'\n'+galleryJS;clone.querySelector('body').append(app);
+      const app=document.createElement('script');app.textContent=js+'\n'+githubJS+'\n'+galleryJS;clone.querySelector('body').append(app);
       clone.querySelector('#download-page').hidden=true;
       const link=document.createElement('a');const url=URL.createObjectURL(new Blob(['<!doctype html>\n'+clone.outerHTML],{type:'text/html;charset=utf-8'}));link.href=url;link.download='our-seconds.html';link.click();setTimeout(()=>URL.revokeObjectURL(url),10000);
       toast('专属页面已下载 ♡');
