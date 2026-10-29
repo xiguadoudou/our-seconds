@@ -6,7 +6,7 @@
   const storage = {get(key) {try{return localStorage.getItem(key);}catch{return null;}},set(key,value){try{localStorage.setItem(key,value);return true;}catch{return false;}}};
   function valid(c) { return c && Array.isArray(c.names) && c.names.length === 2 && c.names.every(n => typeof n === 'string' && n.trim() && n.length <= 16) && typeof c.start === 'string' && /\+08:00$/.test(c.start) && Number.isFinite(Date.parse(c.start)) && typeof c.letter === 'string' && typeof c.title === 'string'; }
   let config = defaults;
-  try {const saved = JSON.parse(storage.get(KEY));if(valid(saved)) config = {...defaults,names:saved.names,start:Date.parse(saved.start)===Date.parse('2026-03-24T13:00:00+08:00')?defaults.start:saved.start,title:saved.title,letter:saved.letter};} catch {}
+  try {const saved = JSON.parse(storage.get(KEY));if(valid(saved)) config = {...defaults,names:saved.names,start:[Date.parse('2026-03-24T13:00:00+08:00'),Date.parse('2026-04-24T00:00:00+08:00')].includes(Date.parse(saved.start))?defaults.start:saved.start,title:saved.title,letter:saved.letter};} catch {}
   const pad = (n, size=2) => String(n).padStart(size,'0');
   const parts = ms => {let t = Math.max(0, Math.floor(ms));return {days:Math.floor(t/86400000),hours:Math.floor(t/3600000)%24,minutes:Math.floor(t/60000)%60,seconds:Math.floor(t/1000)%60,ms:t%1000};};
   const chinaParts = timestamp => {const d=new Date(timestamp+28800000);return {year:d.getUTCFullYear(),month:d.getUTCMonth(),day:d.getUTCDate(),hours:d.getUTCHours(),minutes:d.getUTCMinutes(),seconds:d.getUTCSeconds()};};
@@ -119,7 +119,7 @@
     const button=$('download-page');button.disabled=true;
     try {
       const fetchText=async url=>{const r=await fetch(url);if(!r.ok)throw new Error('fetch failed');return r.text();};
-      const [css,js]=await Promise.all([fetchText('style.css?v=20261029-5'),fetchText('app.js?v=20261029-5')]);
+      const [css,js]=await Promise.all([fetchText('style.css?v=20261029-6'),fetchText('app.js?v=20261029-6')]);
       const exportConfig=value;
       const clone=document.documentElement.cloneNode(true);
       clone.querySelectorAll('script,link[rel="stylesheet"]').forEach(n=>n.remove());
