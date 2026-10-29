@@ -6,7 +6,7 @@
   const storage = {get(key) {try{return localStorage.getItem(key);}catch{return null;}},set(key,value){try{localStorage.setItem(key,value);return true;}catch{return false;}}};
   function valid(c) { return c && Array.isArray(c.names) && c.names.length === 2 && c.names.every(n => typeof n === 'string' && n.trim() && n.length <= 16) && typeof c.start === 'string' && /\+08:00$/.test(c.start) && Number.isFinite(Date.parse(c.start)) && typeof c.letter === 'string' && typeof c.title === 'string'; }
   let config = defaults;
-  try {const saved = JSON.parse(storage.get(KEY));if(valid(saved)) config = {...defaults,...saved,birthdays:defaults.birthdays,photos:defaults.photos};} catch {}
+  try {const saved = JSON.parse(storage.get(KEY));if(valid(saved)) config = {...defaults,names:saved.names,start:saved.start,title:saved.title,letter:saved.letter};} catch {}
   const pad = (n, size=2) => String(n).padStart(size,'0');
   const parts = ms => {let t = Math.max(0, Math.floor(ms));return {days:Math.floor(t/86400000),hours:Math.floor(t/3600000)%24,minutes:Math.floor(t/60000)%60,seconds:Math.floor(t/1000)%60,ms:t%1000};};
   const chinaParts = timestamp => {const d=new Date(timestamp+28800000);return {year:d.getUTCFullYear(),month:d.getUTCMonth(),day:d.getUTCDate(),hours:d.getUTCHours(),minutes:d.getUTCMinutes(),seconds:d.getUTCSeconds()};};
@@ -70,6 +70,15 @@
   renderConfig();loop();
   document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{const d=$(b.dataset.close);if(d.dataset.busy!=='true')d.close();}));
   document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d&&d.dataset.busy!=='true'){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}}));
+  let viewportFrame=0,lastViewport='';
+  function updateDialogViewport(){
+    if(!document.querySelector('dialog[open]'))return;
+    const v=window.visualViewport,values=[v?v.width:innerWidth,v?v.height:innerHeight,v?v.offsetLeft:0,v?v.offsetTop:0].map(n=>Math.round(n*100)/100);
+    const key=values.join(',');if(key===lastViewport)return;lastViewport=key;
+    ['width','height','left','top'].forEach((name,i)=>document.documentElement.style.setProperty('--view-'+name,values[i]+'px'));
+  }
+  function queueDialogViewport(){cancelAnimationFrame(viewportFrame);viewportFrame=requestAnimationFrame(updateDialogViewport);}
+  window.addEventListener('resize',queueDialogViewport);window.visualViewport?.addEventListener('resize',queueDialogViewport);
   let lockedScroll=null;
   window.showLoveDialog=dialog=>{
     if(dialog.open)return;
@@ -78,7 +87,7 @@
       document.body.style.setProperty('--locked-y',`${-lockedScroll.y}px`);
       document.body.classList.add('modal-scroll-locked');
     }
-    dialog.showModal();window.dispatchEvent(new Event('love:dialog-open'));
+    dialog.showModal();updateDialogViewport();
   };
   document.querySelectorAll('dialog').forEach(dialog=>dialog.addEventListener('close',()=>{
     if(document.querySelector('dialog[open]')||!lockedScroll)return;
@@ -110,27 +119,20 @@
     const button=$('download-page');button.disabled=true;
     try {
       const fetchText=async url=>{const r=await fetch(url);if(!r.ok)throw new Error('fetch failed');return r.text();};
-      const [css,js,galleryJS,githubJS]=await Promise.all([fetchText('style.css?v=20261029-3'),fetchText('app.js?v=20261029-3'),fetchText('gallery.js?v=20261029-3'),fetchText('github-album.js?v=20261029-3')]);
-      const exportConfig={...value,photos:await window.exportLovePhotos(),snapshot:true};
+      const [css,js]=await Promise.all([fetchText('style.css?v=20261029-4'),fetchText('app.js?v=20261029-4')]);
+      const exportConfig=value;
       const clone=document.documentElement.cloneNode(true);
       clone.querySelectorAll('script,link[rel="stylesheet"]').forEach(n=>n.remove());
       clone.querySelectorAll('dialog').forEach(n=>n.removeAttribute('open'));
       clone.querySelector('#toast').classList.remove('visible');
       clone.querySelectorAll('.petal').forEach(n=>n.remove());
-      clone.querySelectorAll('.photo-card').forEach(n=>n.remove());
-      clone.querySelector('#gallery-empty').hidden=false;
-      clone.querySelector('#full-photo').removeAttribute('src');
-      clone.querySelector('#photo-manage-list').replaceChildren();
-      clone.querySelector('#upload-preview-list').replaceChildren();
-      clone.querySelectorAll('input[type="password"]').forEach(input=>{input.value='';input.removeAttribute('value');});
       clone.querySelector('body').classList.remove('modal-scroll-locked');
       clone.querySelector('body').style.removeProperty('--locked-y');
-      clone.querySelectorAll('.photo-card').forEach(n=>n.remove());
       clone.querySelector('title').textContent=`${value.names.join(' × ')} · 我们的每一秒`;
       const style=document.createElement('style');style.textContent=css;clone.querySelector('head').append(style);
       const setting=document.createElement('script');setting.textContent='window.LOVE_CONFIG='+JSON.stringify(exportConfig).replace(/</g,'\\u003c')+';';
       clone.querySelector('head').append(setting);
-      const app=document.createElement('script');app.textContent=js+'\n'+githubJS+'\n'+galleryJS;clone.querySelector('body').append(app);
+      const app=document.createElement('script');app.textContent=js;clone.querySelector('body').append(app);
       clone.querySelector('#download-page').hidden=true;
       const link=document.createElement('a');const url=URL.createObjectURL(new Blob(['<!doctype html>\n'+clone.outerHTML],{type:'text/html;charset=utf-8'}));link.href=url;link.download='our-seconds.html';link.click();setTimeout(()=>URL.revokeObjectURL(url),10000);
       toast('专属页面已下载 ♡');

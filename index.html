@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" data-version="20261029-3">
+<html lang="zh-CN" data-version="20261029-4">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -7,15 +7,12 @@
   <meta name="description" content="豆豆与喵喵的时光纪念册。爱你，是每一秒都在发生的事。">
   <title>豆豆 × 喵喵 · 我们的每一秒</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=20261029-3">
-  <script src="config.js?v=20261029-3" defer></script>
-  <script src="app.js?v=20261029-3" defer></script>
-  <script src="github-album.js?v=20261029-3" defer></script>
-  <script src="gallery.js?v=20261029-3" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261029-4">
+  <script src="config.js?v=20261029-4" defer></script>
+  <script src="app.js?v=20261029-4" defer></script>
 </head>
 <body>
-  <div class="ambient ambient-pink" aria-hidden="true"></div><div class="ambient ambient-blue" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
+  <div class="page-decoration" aria-hidden="true"><div class="ambient ambient-pink"></div><div class="ambient ambient-blue"></div><div class="grain"></div></div>
   <header class="header">
     <a class="brand" href="#" aria-label="我们的每一秒，返回顶部"><span class="brand-icon">∞</span><span>我们的每一秒<small>EVERY SECOND, WITH YOU</small></span></a>
     <div class="header-actions"><span class="live"><i></i> 故事正在继续</span><button class="icon-button" id="theme" aria-label="切换夜间主题" title="切换主题"><svg viewBox="0 0 24 24"><path d="M20.4 13A8.5 8.5 0 0 1 11 3.6 8.5 8.5 0 1 0 20.4 13Z"/></svg></button></div>
@@ -53,25 +50,11 @@
         <article class="birthday-card"><span class="birthday-mark" aria-hidden="true">✧</span><span class="milestone-index">A WISH FOR YOU / 02</span><h3 id="birthday-name-1">喵喵的生日</h3><p class="birth-date">2006.10.10</p><div class="birthday-clock" id="birthday-clock-1" role="timer" aria-live="off"></div><p class="birthday-foot" id="birthday-foot-1"></p></article>
       </div>
     </section>
-    <section class="gallery page-section" aria-labelledby="gallery-title">
-      <div class="story-heading"><span>PIECES OF OUR LITTLE WORLD</span><h2 id="gallery-title">把喜欢的瞬间，叠成回忆。</h2><p class="section-note">左右轻轻一划，翻到我们的下一页。</p></div>
-      <div class="photo-deck" id="photo-deck" aria-label="错落照片图集" tabindex="0" aria-roledescription="轮播图">
-        <div class="empty-stack" id="gallery-empty"><div class="empty-photo back-two"></div><div class="empty-photo back-one"></div><label class="empty-photo front photo-picker" id="empty-add"><span class="photo-doodle" aria-hidden="true">♡</span><span>把我们的日常<br>收藏在这里</span><small>添加第一张照片 ↗</small><input class="photo-file-input" id="photo-input-cover" type="file" accept="image/*,.jpg,.jpeg,.png,.webp,.gif,.avif,.heic,.heif" multiple aria-label="添加第一张照片"></label></div>
-      </div>
-      <div class="gallery-controls"><button id="photo-prev" class="round-arrow" aria-label="上一张照片">←</button><span id="photo-position" aria-live="polite">等待我们的第一张照片</span><button id="photo-next" class="round-arrow" aria-label="下一张照片">→</button></div>
-      <div class="gallery-actions"><label class="letter-button photo-picker" id="add-photos">＋ 添加照片<input class="photo-file-input" id="photo-input" type="file" accept="image/*,.jpg,.jpeg,.png,.webp,.gif,.avif,.heic,.heif" multiple aria-label="选择照片"></label><button class="quiet-button" id="manage-photos">整理照片</button></div>
-      <div class="album-tools"><button class="quiet-button" id="connect-album">连接共享相册</button><span aria-hidden="true">·</span><button class="quiet-button" id="refresh-album">刷新共享相册</button><span id="album-state" role="status"></span></div>
-      <p class="gallery-note" id="gallery-note">照片可以上传共享相册，也可以仅在本机预览</p>
-    </section>
     <section class="closing"><span class="little-heart">♡</span><p>时间会往前走，<br>而我会一直在你身边。</p><span class="closing-english">TODAY, TOMORROW & ALL THE DAYS AFTER.</span></section>
   </main>
   <footer><span id="footer-names">豆豆 & 喵喵</span><span>未完待续，来日方长。 <span class="footer-heart">♡</span></span><button id="settings" aria-label="打开纪念日设置">纪念日设置 <svg viewBox="0 0 24 24"><path d="M12 8v8M8 12h8"/></svg></button></footer>
   <dialog id="letter-dialog"><button class="dialog-close" data-close="letter-dialog" aria-label="关闭信笺">×</button><div class="letter-tag">A LETTER FOR YOU</div><div class="letter-heart">♡</div><h2>写给最偏爱的你</h2><p id="letter-text"></p><span class="letter-stamp">WITH ALL MY LOVE</span></dialog>
   <dialog id="settings-dialog"><button class="dialog-close" data-close="settings-dialog" aria-label="关闭设置">×</button><div class="letter-tag">OUR LITTLE DETAILS</div><h2>故事的起点</h2><form id="settings-form"><div class="form-names"><label>你的称呼<input name="first" required maxlength="16"></label><label>她的称呼<input name="second" required maxlength="16"></label></div><label>开始在一起的时间（北京时间）<input name="start" type="datetime-local" step="1" required></label><label>想说给她听的话<textarea name="letter" rows="5" maxlength="2000"></textarea></label><p class="form-note">保存后仅在当前浏览器生效；下载专属页面，可将新设置分享给她或上传 GitHub。</p><p id="form-error" role="alert"></p><div class="form-actions"><button type="submit" class="save-button">保存纪念日</button><button type="button" id="download-page" class="quiet-button">下载专属页面 ↗</button></div></form></dialog>
-  <dialog id="photo-dialog" aria-label="完整照片查看器"><div class="lightbox-toolbar"><span id="lightbox-count"></span><button class="dialog-close" data-close="photo-dialog" aria-label="关闭完整照片">×</button></div><div class="lightbox-stage" id="lightbox-stage"><img id="full-photo" alt=""></div><div class="lightbox-footer"><button class="round-arrow" id="lightbox-prev" aria-label="查看上一张完整照片">←</button><p id="full-photo-caption"></p><button class="round-arrow" id="lightbox-next" aria-label="查看下一张完整照片">→</button></div></dialog>
-  <dialog id="photo-manage-dialog" aria-labelledby="manage-title"><button class="dialog-close" data-close="photo-manage-dialog" aria-label="关闭照片管理">×</button><div class="letter-tag">OUR LITTLE COLLECTION</div><h2 id="manage-title">整理照片</h2><p class="form-note">本机照片可以修改标题、移除，或一起上传到共享相册。</p><div id="photo-manage-list"></div><button class="save-button" id="sync-local-photos">上传本机照片到共享相册</button></dialog>
-  <dialog id="github-dialog" aria-labelledby="github-title"><button class="dialog-close" data-close="github-dialog" aria-label="关闭共享相册设置">×</button><div class="letter-tag">OUR SHARED ALBUM</div><h2 id="github-title">把回忆放在一起</h2><p class="form-note">连接你的 GitHub 仓库后，照片会上传到共享相册，两个人打开网页都能看到。</p><ol class="connect-steps"><li>创建 Fine-grained token，Repository access 只选 <strong>our-seconds</strong>。</li><li>Repository permissions 中，将 <strong>Contents</strong> 设为 <strong>Read and write</strong>，设置合适的到期时间。</li><li>将生成的令牌填在下方。本次页面关闭或刷新后需重新连接。</li></ol><a class="token-link" href="https://github.com/settings/personal-access-tokens/new?name=OurSecondsPhotos&amp;target_name=xiguadoudou&amp;contents=write" target="_blank" rel="noopener noreferrer">去 GitHub 创建相册令牌 ↗</a><form id="github-form" autocomplete="off"><label>GitHub 访问令牌<input id="github-token" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" required placeholder="github_pat_…"></label><p class="form-note">令牌只用于当前页面向 GitHub 验证身份，不会保存到网页、照片或仓库中。</p><p id="github-error" class="inline-error" role="alert"></p><div class="form-actions"><button type="submit" class="save-button" id="github-connect-button">连接相册</button><button type="button" class="quiet-button" id="github-disconnect">断开连接</button></div></form></dialog>
-  <dialog id="upload-dialog" aria-labelledby="upload-title"><button class="dialog-close" data-close="upload-dialog" id="close-upload" aria-label="关闭照片上传">×</button><div class="letter-tag">SAVE OUR MOMENTS</div><h2 id="upload-title">收藏这些瞬间</h2><div id="upload-preview-list"></div><p class="form-note">共享照片将上传到公开的 our-seconds 仓库，任何打开网页的人都能查看；原图会完整保留。</p><p id="upload-progress" role="status"></p><p id="upload-error" class="inline-error" role="alert"></p><div class="form-actions"><button class="save-button" id="upload-to-github">上传到共享相册</button><button class="quiet-button" id="save-local">仅在本机预览</button></div></dialog>
   <div id="toast" role="status"></div>
   <noscript>请启用 JavaScript，查看豆豆和喵喵持续增加的在一起时长。</noscript>
 </body>
