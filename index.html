@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f9f6f2">
+  <meta name="description" content="豆豆与喵喵的时光纪念册。爱你，是每一秒都在发生的事。">
+  <title>豆豆 × 喵喵 · 我们的每一秒</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="ambient ambient-pink" aria-hidden="true"></div><div class="ambient ambient-blue" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="header">
+    <a class="brand" href="#" aria-label="我们的每一秒，返回顶部"><span class="brand-icon">∞</span><span>我们的每一秒<small>EVERY SECOND, WITH YOU</small></span></a>
+    <div class="header-actions"><span class="live"><i></i> 故事正在继续</span><button class="icon-button" id="theme" aria-label="切换夜间主题" title="切换主题"><svg viewBox="0 0 24 24"><path d="M20.4 13A8.5 8.5 0 0 1 11 3.6 8.5 8.5 0 1 0 20.4 13Z"/></svg></button></div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="title">
+      <div class="eyebrow"><span></span> A LITTLE FOREVER OF OUR OWN <span></span></div>
+      <h1 id="title">爱你，是每一秒<br>都在发生的事<span class="title-dot">。</span></h1>
+      <p class="subtitle">世界很大，而我的偏爱，刚好是你。</p>
+      <div class="couple"><span class="name name-a">豆豆</span><span class="heart" aria-label="爱"><svg viewBox="0 0 32 32"><path d="M16 27S3 19.2 3 10.8C3 3.8 12 2.3 16 8c4-5.7 13-4.2 13 2.8C29 19.2 16 27 16 27Z"/></svg></span><span class="name name-b">喵喵</span></div>
+      <div class="timer-panel">
+        <div class="timer-caption"><span class="tiny-star">✧</span> 我们已经一起走过 <span class="tiny-star">✧</span></div>
+        <div class="days-line"><span id="days">—</span><span class="days-unit">天<small>DAYS IN LOVE</small></span></div>
+        <div class="clock" role="timer" aria-label="在一起的时长" aria-live="off">
+          <div class="clock-part"><span id="hours">00</span><small>小时 · HOURS</small></div><b class="colon">:</b>
+          <div class="clock-part"><span id="minutes">00</span><small>分钟 · MINUTES</small></div><b class="colon">:</b>
+          <div class="clock-part seconds"><div><span id="seconds">00</span><span class="milliseconds">.<span id="ms">000</span></span></div><small>秒 · SECONDS</small></div>
+        </div>
+        <div class="since"><span class="since-line"></span><span>始于 <time id="since">2026.03.24 · 13:00</time> <span class="tz">UTC+8</span></span><span class="since-line"></span></div>
+      </div>
+      <p class="whisper"><span class="pulse-dot"></span> 这一秒，比上一秒更喜欢你。</p>
+      <div class="hero-actions"><button class="letter-button" id="open-letter"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg>有些话，想说给你听<span>↗</span></button><button class="quiet-button" id="fullscreen" aria-label="进入全屏">沉浸一下 <svg viewBox="0 0 24 24"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6"/></svg></button></div>
+    </section>
+    <section class="story" aria-label="我们的纪念时刻">
+      <div class="story-heading"><span>THE WAY WE LOVE</span><h2>两个人，把日子过成诗。</h2></div>
+      <div class="story-layout">
+        <div class="orbit-art" aria-hidden="true"><svg viewBox="0 0 380 290"><defs><radialGradient id="glow"><stop stop-color="#edbcc8" stop-opacity=".5"/><stop offset="1" stop-color="#edbcc8" stop-opacity="0"/></radialGradient><linearGradient id="orb"><stop stop-color="#cc9cac"/><stop offset="1" stop-color="#9dbec5"/></linearGradient></defs><circle cx="190" cy="145" r="135" fill="url(#glow)"/><g fill="none" stroke="url(#orb)" stroke-width=".8"><ellipse cx="190" cy="145" rx="160" ry="60" transform="rotate(-28 190 145)"/><ellipse cx="190" cy="145" rx="160" ry="60" transform="rotate(28 190 145)"/><circle cx="190" cy="145" r="95" stroke-dasharray="2 9" opacity=".5"/></g><circle class="planet-a" cx="62" cy="180" r="12" fill="#d28c9e"/><circle class="planet-b" cx="318" cy="180" r="10" fill="#94b5c1"/><path d="M190 161s-26-15-26-32c0-14 18-17 26-5 8-12 26-9 26 5 0 17-26 32-26 32Z" fill="none" stroke="#bd7a8f" stroke-width="1.4"/><g fill="#bfa58b"><path d="m83 62 2-7 2 7 7 2-7 2-2 7-2-7-7-2Z"/><path d="m287 61 1-4 1 4 4 1-4 1-1 4-1-4-4-1Z"/></g><text x="190" y="261" text-anchor="middle" fill="#a08b88" font-family="Georgia,serif" font-style="italic" font-size="14">two souls, one little universe.</text></svg></div>
+        <div class="milestones"><article><span class="milestone-index">01 / THE BEGINNING</span><h3>所有美好，从这一天开始。</h3><p id="begin-date">2026 年 3 月 24 日</p></article><article><span class="milestone-index">02 / THE NEXT CHAPTER</span><h3 id="next-title">下一个纪念日</h3><p id="next-date">正在计算…</p><div class="progress-track" aria-hidden="true"><span id="year-progress"></span></div></article></div>
+      </div>
+    </section>
+    <section class="closing"><span class="little-heart">♡</span><p>时间会往前走，<br>而我会一直在你身边。</p><span class="closing-english">TODAY, TOMORROW & ALL THE DAYS AFTER.</span></section>
+  </main>
+  <footer><span id="footer-names">豆豆 & 喵喵</span><span>未完待续，来日方长。 <span class="footer-heart">♡</span></span><button id="settings" aria-label="打开纪念日设置">纪念日设置 <svg viewBox="0 0 24 24"><path d="M12 8v8M8 12h8"/></svg></button></footer>
+  <dialog id="letter-dialog"><button class="dialog-close" data-close="letter-dialog" aria-label="关闭信笺">×</button><div class="letter-tag">A LETTER FOR YOU</div><div class="letter-heart">♡</div><h2>写给最偏爱的你</h2><p id="letter-text"></p><span class="letter-stamp">WITH ALL MY LOVE</span></dialog>
+  <dialog id="settings-dialog"><button class="dialog-close" data-close="settings-dialog" aria-label="关闭设置">×</button><div class="letter-tag">OUR LITTLE DETAILS</div><h2>故事的起点</h2><form id="settings-form"><div class="form-names"><label>你的称呼<input name="first" required maxlength="16"></label><label>她的称呼<input name="second" required maxlength="16"></label></div><label>开始在一起的时间（北京时间）<input name="start" type="datetime-local" step="1" required></label><label>想说给她听的话<textarea name="letter" rows="5" maxlength="2000"></textarea></label><p class="form-note">保存后仅在当前浏览器生效；下载专属页面，可将新设置分享给她或上传 GitHub。</p><p id="form-error" role="alert"></p><div class="form-actions"><button type="submit" class="save-button">保存纪念日</button><button type="button" id="download-page" class="quiet-button">下载专属页面 ↗</button></div></form></dialog>
+  <div id="toast" role="status"></div>
+  <noscript>请启用 JavaScript，查看豆豆和喵喵持续增加的在一起时长。</noscript>
+</body>
+</html>
